@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Attendance Management System</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 0; background: #f4f6f8; }
+    header { background: #1e40af; color: white; padding: 15px; text-align: center; }
+    nav { background: #2563eb; padding: 10px; text-align: center; }
+    nav a { color: white; margin: 0 15px; text-decoration: none; font-weight: bold; }
+    .container { padding: 30px; }
+    .card { background: white; padding: 20px; margin-bottom: 20px; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+    h2 { color: #1e40af; }
+    table { width: 100%; border-collapse: collapse; }
+    th, td { border: 1px solid #ccc; padding: 10px; text-align: center; }
+    th { background: #e5e7eb; }
+    button { background: #2563eb; color: white; border: none; padding: 8px 15px; cursor: pointer; border-radius: 5px; }
+    input { padding: 8px; margin: 5px 0; width: 100%; }
+    .hidden { display: none; }
+    footer { background: #1e40af; color: white; text-align: center; padding: 10px; }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>Attendance Management System</h1>
+  <p>Login • Mark • Calculate Attendance</p>
+</header>
+
+<div class="container">
+    <!-- Login Page -->
+<div id="login" class="card" style="position: relative; overflow: hidden;">
+<!-- Watermark -->
+<div style="position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); font-size:32px; color:rgba(30,64,175,0.12); font-weight:bold; text-align:center; z-index:0; line-height:1.4;">
+JAIN COLLEGE OF ENGINEERING<br>AND TECHNOLOGY<br>HUBBALLI
+</div>
+
+ <div style="position:relative; z-index:1;">
+<h2>Login</h2>
+<label>Username</label>
+<input type="text" id="username" placeholder="Enter username" />
+<label>Password</label>
+<input type="password" id="password" placeholder="Enter password" />
+<br><br>
+<button onclick="login()">Login</button>
+<p id="loginMsg"></p>
+</div>
+</div>
+
+o<!-- Teacher Panel -->
+  <div id="teacher" class="card hidden">
+    <h2>Teacher Panel</h2>
+    <table>
+      <tr><th>Student</th><th>Status</th></tr>
+      <tr><td>Aryan</td><td><select id="s1"><option value="P">Present</option><option value="A">Absent</option></select></td></tr>
+      <tr><td>Ganesh</td><td><select id="s2"><option value="P">Present</option><option value="A">Absent</option></select></td></tr>
+      <tr><td>Karthik</td><td><select id="s3"><option value="P">Present</option><option value="A">Absent</option></select></td></tr>
+      <tr><td>Satvik</td><td><select id="s1"><option value="P">Present</option><option value="A">Absent</option></select></td></tr>
+      <tr><td>Alok</td><td><select id="s1"><option value="P">Present</option><option value="A">Absent</option></select></td></tr>
+      <tr><td>Anush</td><td><select id="s1"><option value="P">Present</option><option value="A">Absent</option></select></td></tr>
+      <tr><td>Siddharth</td><td><select id="s1"><option value="P">Present</option><option value="A">Absent</option></select></td></tr>
+      <tr><td>Mandar</td><td><select id="s1"><option value="P">Present</option><option value="A">Absent</option></select></td></tr>
+      <tr><td>Srujan</td><td><select id="s1"><option value="P">Present</option><option value="A">Absent</option></select></td></tr>
+      <tr><td>Rohan</td><td><select id="s1"><option value="P">Present</option><option value="A">Absent</option></select></td></tr>
+      <tr><td>Rohit</td><td><select id="s1"><option value="P">Present</option><option value="A">Absent</option></select></td></tr>
+   </table>
+    <br>
+    <button onclick="calculateAttendance()">Save & Calculate</button>
+  </div>
+
+  <!-- Student Panel -->
+  <div id="student" class="card hidden">
+    <h2>Student Attendance Result</h2>
+    <p>Total Students: 3</p>
+    <p>Present: <span id="presentCount">0</span></p>
+    <p>Attendance Percentage: <span id="percentage">0</span>%</p>
+  </div>
+
+</div>
+<footer>
+  <p>© 2026 Attendance Management System | Mini Project</p>
+</footer>
+
+<script>
+  function login() {
+    const user = document.getElementById('username').value;
+    const pass = document.getElementById('password').value;
+
+    if (user === 'teacher' && pass === '1234') {
+      document.getElementById('login').classList.add('hidden');
+      document.getElementById('teacher').classList.remove('hidden');
+    } else {
+      document.getElementById('loginMsg').innerText = 'Invalid login! Try teacher / 1234';
+    }
+  }
+
+  function calculateAttendance() {
+    let present = 0;
+    const students = ['s1', 's2', 's3'];
+
+    students.forEach(id => {
+      if (document.getElementById(id).value === 'P') present++;
+    });
+
+    const percentage = (present / students.length) * 100;
+
+    document.getElementById('presentCount').innerText = present;
+    document.getElementById('percentage').innerText = percentage.toFixed(2);
+
+    document.getElementById('student').classList.remove('hidden');
+  }
+</script>
+
+</body>
+</html>
